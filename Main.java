@@ -1,43 +1,38 @@
+
 // Name: Ernesto Morales Carrasco
 // Email: emoralescarras@cnm.edu
 // Assignment: Linked List
 /** Purpose:
  * Main must read in the data from the file and save each row of data into a new HurricaneRowData object, which are further 
- * organized into an ArrayList. Main also must contain a private static method that takes the ArrayList of data as input and 
- * returns the year in which the ACE index (second column) was maximal. Display out the year and maximum ACE value BOTH on the 
- * command prompt and also output the information to a text file. 
+ * organized into a DoublyLinkedSortedList. Main also must contain a private static method that takes the DoublyLinkedSortedList 
+ * of data as input and returns the year in which the ACE index (second column) was maximal. Display out the year and maximum 
+ * ACE value BOTH on the command prompt and also output the information to a text file. 
 */
-
-//TODO NEED TO UPDATE COMMENTS
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-
-
-//TODO UPDATE MAIN
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<HurricaneRowData> hurricaneData = new ArrayList<>();
-        
+        DoublyLinkedSortedList data = new DoublyLinkedSortedList();
         // Read the CSV file
         try (BufferedReader br = new BufferedReader(new FileReader("ace.csv"))) {
             String line;
             br.readLine();
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                int year = Integer.parseInt(data[0].trim());
-                int aceIndex = Integer.parseInt(data[1].trim());
-                int tropicalStorms = Integer.parseInt(data[2].trim());
-                int hurricanes = Integer.parseInt(data[3].trim());
-                int majorHurricanes = Integer.parseInt(data[4].trim());
-                
-                HurricaneRowData row = new HurricaneRowData(year, aceIndex, tropicalStorms, hurricanes, majorHurricanes);
-                hurricaneData.add(row);
+                String[] row = line.split(",");
+                int year = Integer.parseInt(row[0].trim());
+                int aceIndex = Integer.parseInt(row[1].trim());
+                int tropicalStorms = Integer.parseInt(row[2].trim());
+                int hurricanes = Integer.parseInt(row[3].trim());
+                int majorHurricanes = Integer.parseInt(row[4].trim());
+
+                HurricaneRowData hurricaneRow = new HurricaneRowData(year, aceIndex, tropicalStorms, hurricanes,
+                        majorHurricanes);
+                data.insert(hurricaneRow);
             }
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
@@ -45,42 +40,20 @@ public class Main {
         }
 
         // Find the year with the maximum ACE index
-        int maxAceYear = findMaxAceYear(hurricaneData);
-        int maxAceValue = 0;
-        for (HurricaneRowData row : hurricaneData) {
-            if (row.getYear() == maxAceYear) {
-                maxAceValue = row.getAceIndex();
-                break;
-            }
-        }
-
-        // Output to console
-        System.out.println("Year with maximum ACE: " + maxAceYear + ", ACE Value: " + maxAceValue);
+        DoublyLinkedSortedList link = data.getFirst();
+        HurricaneRowData dat = link.getValue();
+        int maxYear = dat.getYear();
+        System.out.println("Year of max ace: " + maxYear);
+        System.out.println("All data in order of Ace:");
+        System.out.println(data);
 
         // Output to text file
         try (PrintWriter writer = new PrintWriter(new FileWriter("maxAceOutput.txt"))) {
-            writer.println("Year with maximum ACE: " + maxAceYear + ", ACE Value: " + maxAceValue);
+            writer.println("Year of max ace: " + maxYear);
+            writer.println("All data in order of Ace:");
+            writer.println(data);
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
-    }
-
-    /**
-     * Method to find the year with the maximum ACE index
-     * @param data Array list with all Hurricane Data
-     * @return Year with maximum ACE index
-     */
-    private static int findMaxAceYear(ArrayList<HurricaneRowData> data) {
-        int maxAce = 0;
-        int maxYear = 0;
-        
-        for (HurricaneRowData row : data) {
-            if (row.getAceIndex() > maxAce) {
-                maxAce = row.getAceIndex();
-                maxYear = row.getYear();
-            }
-        }
-        
-        return maxYear;
     }
 }
