@@ -4,9 +4,9 @@
 // Assignment: Linked List
 /** Purpose:
  * Main must read in the data from the file and save each row of data into a new HurricaneRowData object, which are further 
- * organized into a DoublyLinkedSortedList. Main also must contain a private static method that takes the DoublyLinkedSortedList 
- * of data as input and returns the year in which the ACE index (second column) was maximal. Display out the year and maximum 
- * ACE value BOTH on the command prompt and also output the information to a text file. 
+ * organized into a DoublyLinkedSortedList. Main also must takes the DoublyLinkedSortedList of data as input and returns the 
+ * year in which the ACE index (second column) was maximal. Display out the year and maximum ACE value BOTH on the command
+ *  prompt and also output the information to a text file. 
 */
 
 import java.io.BufferedReader;
