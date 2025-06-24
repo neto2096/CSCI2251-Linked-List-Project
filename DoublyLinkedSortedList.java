@@ -1,11 +1,10 @@
-//TODO NEEDS COMMENTS
 // Name: Ernesto Morales Carrasco
 // Email: emoralescarras@cnm.edu
 // Assignment: Linked List
 /**
  * Purpose:
  * Implements a doubly-linked, self-sorting list for storing HurricaneRowData
- * objects,
+ * objects
  * sorted by ACE index in descending order during insertion.
  */
 
@@ -28,41 +27,49 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         this.previous = null;
     }
 
+    // Returns the HurricaneRowData value of this node
     @Override
     public HurricaneRowData getValue() {
         return value;
     }
 
+    // Returns true if this node has a next node
     @Override
     public boolean hasNext() {
         return next != null;
     }
 
+    // Sets the next node to the given node
     @Override
     public void setNext(DoublyLinkedSortedList next) {
         this.next = next;
     }
 
+    // Returns the next node
     @Override
     public DoublyLinkedSortedList getNext() {
         return next;
     }
 
+    // Returns true if this node has a previous node
     @Override
     public boolean hasPrevious() {
         return previous != null;
     }
 
+    // Sets the previous node to the given node
     @Override
     public void setPrevious(DoublyLinkedSortedList previous) {
         this.previous = previous;
     }
 
+    // Returns the previous node
     @Override
     public DoublyLinkedSortedList getPrevious() {
         return previous;
     }
 
+    // Returns the first node with data in the list
     @Override
     public DoublyLinkedSortedList getFirst() {
         DoublyLinkedSortedList current = this;
@@ -76,6 +83,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         return current;
     }
 
+    // Returns the last node in the list
     @Override
     public DoublyLinkedSortedList getLast() {
         DoublyLinkedSortedList current = this;
@@ -85,6 +93,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         return current;
     }
 
+    // Removes the node with the specified value and returns it
     @Override
     public DoublyLinkedSortedList remove(HurricaneRowData toRemove) {
         DoublyLinkedSortedList current = getFirst();
@@ -104,6 +113,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         return null; // Not found
     }
 
+    // Inserts a new node with the given value in sorted order (descending by ACE index)
     @Override
     public void insert(HurricaneRowData newValue) {
         DoublyLinkedSortedList newNode = new DoublyLinkedSortedList(newValue);
@@ -116,7 +126,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
             return;
         }
 
-        DoublyLinkedSortedList current = getFirst(); // Get the first *actual data* node
+        DoublyLinkedSortedList current = getFirst(); // Get the first non-dummy node
 
         if (newValue.getAceIndex() > current.getValue().getAceIndex()) {
             DoublyLinkedSortedList dummyHead = current.getPrevious(); // Get the dummy head
@@ -142,6 +152,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         }
     }
 
+    // Returns a multi-line string of the list, sorted by ACE index
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -156,6 +167,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         return sb.toString();
     }
 
+    // Returns true if the list contains the given value
     public boolean contains(HurricaneRowData value) {
         DoublyLinkedSortedList current = getFirst();
         while (current != null && current.getValue() != null) {
@@ -167,6 +179,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         return false;
     }
 
+    // Returns the node containing the given value, or null if not found
     public DoublyLinkedSortedList getByValue(HurricaneRowData value) {
         DoublyLinkedSortedList current = getFirst();
         while (current != null && current.getValue() != null) {
