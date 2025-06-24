@@ -1,6 +1,6 @@
 // Name: Ernesto Morales Carrasco
 // Email: emoralescarras@cnm.edu
-// Assignment: Hurricane Data
+// Assignment: Linked List
 /** Purpose:
  * Main must read in the data from the file and save each row of data into a new HurricaneRowData object, which are further 
  * organized into an ArrayList. Main also must contain a private static method that takes the ArrayList of data as input and 
@@ -8,12 +8,17 @@
  * command prompt and also output the information to a text file. 
 */
 
+//TODO NEED TO UPDATE COMMENTS
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+
+//TODO UPDATE MAIN
 
 public class Main {
     public static void main(String[] args) {

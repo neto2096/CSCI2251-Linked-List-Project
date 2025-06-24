@@ -1,3 +1,5 @@
+//TODO NEEDS COMMENTS
+
 public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
     private HurricaneRowData value;
     private DoublyLinkedSortedList next;
