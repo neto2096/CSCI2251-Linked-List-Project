@@ -120,7 +120,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
             current = current.getNext();
         }
 
-        // Insert the new node
+        // Insert the new node 
         newNode.setNext(current.getNext());
         newNode.setPrevious(current);
         current.setNext(newNode);
