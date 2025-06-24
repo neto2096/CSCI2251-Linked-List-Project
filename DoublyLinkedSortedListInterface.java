@@ -1,4 +1,10 @@
-//TODO NEEDS COMMENTS
+// Name: Ernesto Morales Carrasco
+// Email: emoralescarras@cnm.edu
+// Assignment: Linked List
+/** Purpose:
+ * Defines the interface for a doubly-linked, self-sorting list that stores HurricaneRowData objects,
+ * maintaining sort order by ACE index (descending) during insertion.
+ */
 
 public interface DoublyLinkedSortedListInterface
 {
