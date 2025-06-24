@@ -1,4 +1,13 @@
 //TODO NEEDS COMMENTS
+// Name: Ernesto Morales Carrasco
+// Email: emoralescarras@cnm.edu
+// Assignment: Linked List
+/**
+ * Purpose:
+ * Implements a doubly-linked, self-sorting list for storing HurricaneRowData
+ * objects,
+ * sorted by ACE index in descending order during insertion.
+ */
 
 public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
     private HurricaneRowData value;
@@ -60,6 +69,10 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
         while (current.hasPrevious()) {
             current = current.getPrevious();
         }
+
+        if (current.getValue() == null && current.hasNext()) {
+            return current.getNext();
+        }
         return current;
     }
 
@@ -95,24 +108,22 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
     public void insert(HurricaneRowData newValue) {
         DoublyLinkedSortedList newNode = new DoublyLinkedSortedList(newValue);
 
-        // If list is empty or this is a dummy node
-        if (this.value == null && !hasNext() && !hasPrevious()) {
-            this.value = newValue;
+        // If the list is entirely empty (only the dummy head exists)
+        if (this.value == null && this.next == null && this.previous == null) {
+            // This is the dummy head. Insert the first data node after it.
+            this.next = newNode;
+            newNode.setPrevious(this);
             return;
         }
 
-        DoublyLinkedSortedList current = getFirst();
-        DoublyLinkedSortedList first = current;
+        DoublyLinkedSortedList current = getFirst(); // Get the first *actual data* node
 
-        // If inserting at the beginning (newValue has higher ACE)
-        if (current.getValue() == null || newValue.getAceIndex() > current.getValue().getAceIndex()) {
+        if (newValue.getAceIndex() > current.getValue().getAceIndex()) {
+            DoublyLinkedSortedList dummyHead = current.getPrevious(); // Get the dummy head
             newNode.setNext(current);
             current.setPrevious(newNode);
-            if (this == first) {
-                this.value = newNode.getValue();
-                this.next = newNode.getNext();
-                this.previous = null;
-            }
+            dummyHead.setNext(newNode); // The dummy head now points to the new first node
+            newNode.setPrevious(dummyHead);
             return;
         }
 
@@ -122,7 +133,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface {
             current = current.getNext();
         }
 
-        // Insert the new node 
+        // Insert the new node
         newNode.setNext(current.getNext());
         newNode.setPrevious(current);
         current.setNext(newNode);
